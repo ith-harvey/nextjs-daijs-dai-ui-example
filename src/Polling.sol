@@ -1,6 +1,7 @@
 pragma solidity ^0.6.2;
 
 import {BaseRelayRecipient} from "../lib/gsn/contracts/BaseRelayRecipient.sol";
+import {IKnowForwarderAddress} from "../lib/gsn/contracts/interfaces/IKnowForwarderAddress.sol";
 
 contract PollingEvents {
     event PollCreated(
@@ -26,7 +27,7 @@ contract PollingEvents {
     );
 }
 
-abstract contract PollingEmitter is PollingEvents, BaseRelayRecipient {
+contract PollingEmitter is PollingEvents, BaseRelayRecipient, IKnowForwarderAddress {
     uint256 public npoll;
 
     function createPoll(uint256 startDate, uint256 endDate, string calldata multiHash, string calldata url)
@@ -47,19 +48,23 @@ abstract contract PollingEmitter is PollingEvents, BaseRelayRecipient {
         npoll++;
     }
 
-    function setTrustedForwarder(address _trustedForwarder) public {
+    constructor(address _trustedForwarder) public {
         trustedForwarder = _trustedForwarder;
     }
 
-    function withdrawPoll(uint256 pollId)
-        external
-    {
+    function versionRecipient() external override view returns (string memory) {
+        return "Version 1";
+    }
+
+    function getTrustedForwarder() external view override returns(address) {
+        return trustedForwarder;
+    }
+
+    function withdrawPoll(uint256 pollId) external {
         emit PollWithdrawn(_msgSender(), block.number, pollId);
     }
 
-    function vote(uint256 pollId, uint256 optionId)
-        external
-    {
+    function vote(uint256 pollId, uint256 optionId) external {
         emit Voted(_msgSender(), pollId, optionId);
     }
 }
