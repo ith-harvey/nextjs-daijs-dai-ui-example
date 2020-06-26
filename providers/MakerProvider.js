@@ -52,7 +52,7 @@ function MakerProvider({ children, network = 'mainnet' }) {
         web3Connected,
         connectBrowserWallet,
         fetchTokenBalance,
-        getPollCreatedEvents
+        getPollCreatedEvents,
       }}
     >
       {children}

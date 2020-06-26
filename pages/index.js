@@ -7,10 +7,6 @@ import { useEffect } from 'react';
 import IntroMDX from '../text/intro.mdx';
 //import polls from '../_mock/topics'
 
-
-
-
-
 const Index = () => {
   const { maker, fetchTokenBalance, web3Connected, getPollCreatedEvents } = useMaker();
 

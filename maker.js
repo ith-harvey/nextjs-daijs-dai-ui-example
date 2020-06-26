@@ -7,7 +7,7 @@ export async function instantiateMaker() {
   const config = {
     log: true,
     autoAuthenticate: false,
-    plugins: [[pollingPlugin]]
+    plugins: [[pollingPlugin]],
   };
 
   maker = await Maker.create('browser', config);

@@ -12,6 +12,7 @@ export default {
     const contractAddresses = {
       mainnet: require('./contracts/addresses/mainnet.json'),
       kovan: require('./contracts/addresses/kovan.json'),
+      testnet: require('./contracts/addresses/kovan.json'),
     };
 
     // For each contract that you want to add, include the abi and address
@@ -33,8 +34,8 @@ export default {
     const makerConfig = {
       ...config,
       additionalServices: ['polling'], // this tells the SDK which service names to look for
-      custom: [PollingService], // each new service must be added to the config keyed by its name
-      smartContract: { addContracts }
+      polling: [PollingService], // each new service must be added to the config keyed by its name
+      smartContract: { addContracts },
     };
 
     return makerConfig;
