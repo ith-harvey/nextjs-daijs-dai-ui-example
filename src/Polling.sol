@@ -1,8 +1,8 @@
-pragma solidity >=0.5.0;
+pragma solidity ^0.6.2;
 
-import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
+import {BaseRelayRecipient} from "../lib/gsn/contracts/BaseRelayRecipient.sol";
 
-contract PollingEvents is BaseRelayRecipient {
+contract PollingEvents {
     event PollCreated(
         address indexed creator,
         uint256 blockCreated,
@@ -26,7 +26,7 @@ contract PollingEvents is BaseRelayRecipient {
     );
 }
 
-contract PollingEmitter is PollingEvents {
+abstract contract PollingEmitter is PollingEvents, BaseRelayRecipient {
     uint256 public npoll;
 
     function createPoll(uint256 startDate, uint256 endDate, string calldata multiHash, string calldata url)
