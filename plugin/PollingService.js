@@ -16,16 +16,14 @@ export default class PollingService extends PublicService {
   /**Event History */
   async getPollCreatedEvents() {
    const web3 = this.get('web3');
-       const logs = await web3.getPastLogs({
-         address: this._polling.address,
-         topics: [
-           EVENT_START
-         ],
-         fromBlock: '8600000',
-       });
+   const logs = await web3.getPastLogs({
+     topics: [EVENT_START],
+     fromBlock: '8600000',
+   });
 
-        console.log("here", logs)
-       return logs;
+   console.log("here", logs)
+
+   return logs;
    }
 
   /**Polling Methods */
