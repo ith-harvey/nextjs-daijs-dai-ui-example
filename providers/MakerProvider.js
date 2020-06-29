@@ -36,6 +36,14 @@ function MakerProvider({ children, network = 'mainnet' }) {
     loadMaker();
   }, [network]);
 
+  const getPollCreatedEvents = () => {
+      return maker.service('polling').getPollCreatedEvents();
+    };
+
+  const vote = (pollId, optionId) => {
+      return maker.service('polling').vote(pollId, optionId);
+    };
+
   const fetchTokenBalance = token => {
     return maker.service('token').getToken(token).balance();
   };
@@ -47,7 +55,8 @@ function MakerProvider({ children, network = 'mainnet' }) {
         network,
         web3Connected,
         connectBrowserWallet,
-        fetchTokenBalance,
+        vote,
+        getPollCreatedEvents,
       }}
     >
       {children}
